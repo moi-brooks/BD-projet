@@ -2,6 +2,8 @@ import streamlit as st
 import sqlite3
 from datetime import datetime
 
+st.set_page_config(page_title="Interface Réservations Hôtel", layout="centered")
+
 DB_PATH = "hotel_db.sqlite"
 
 def connect_db():
@@ -94,8 +96,58 @@ def get_rooms_for_select():
     conn.close()
     return rooms
 
-st.set_page_config(page_title="Interface Réservations Hôtel", layout="centered")
-st.title("Interface Réservations Hôtel")
+# --- Simple Professional CSS ---
+st.markdown("""
+    <style>
+    body, .main-title {
+        font-family: 'Segoe UI', 'Arial', sans-serif;
+    }
+    .main-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #1A237E;
+        text-align: center;
+        margin-bottom: 1.5em;
+        letter-spacing: 1px;
+    }
+    .stDataFrame {
+        border-radius: 8px;
+        box-shadow: 0 2px 8px #1A237E22;
+        border: 1px solid #E3E6F0;
+        background: #FAFAFA;
+    }
+    .stForm {
+        background: #F5F7FA;
+        border-radius: 10px;
+        padding: 2em 2em 1em 2em;
+        box-shadow: 0 2px 8px #1A237E11;
+        margin-bottom: 2em;
+        border: 1px solid #E3E6F0;
+    }
+    .stButton>button, .stForm>button {
+        background: #1A237E;
+        color: white;
+        font-weight: 600;
+        border-radius: 6px;
+        border: none;
+        padding: 0.5em 1.5em;
+        margin-top: 1em;
+        transition: 0.2s;
+    }
+    .stButton>button:hover, .stForm>button:hover {
+        background: #3949AB;
+        color: #fff;
+        box-shadow: 0 2px 8px #1A237E33;
+    }
+    .stTextInput>div>input, .stSelectbox>div>div>div {
+        border-radius: 5px;
+        border: 1.5px solid #1A237E;
+        background: #FAFAFA;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
+st.markdown('<div class="main-title">Interface Réservations Hôtel</div>', unsafe_allow_html=True)
 
 menu = [
     "Consulter la liste des réservations",
@@ -104,7 +156,8 @@ menu = [
     "Ajouter un client",
     "Ajouter une réservation"
 ]
-choice = st.sidebar.selectbox("Menu", menu)
+
+choice = st.sidebar.radio("Navigation", menu)
 
 if choice == menu[0]:
     st.subheader("Liste des réservations")
